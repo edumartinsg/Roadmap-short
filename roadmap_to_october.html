@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap to October — Job-Ready</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0e;--surface:#191918;--surface2:#222220;
+  --border:#2e2e2b;--border2:#3a3a36;
+  --text:#e8e6df;--muted:#888780;--faint:#444440;
+  --green:#2dd68c;--green-dim:#1a7a52;--green-bg:#0d2b1e;
+  --blue:#4a9eff;--blue-dim:#1d5799;--blue-bg:#0d1e35;
+  --purple:#9b7fff;--purple-dim:#5a3fb5;--purple-bg:#1a1030;
+  --orange:#f5a623;--orange-dim:#8a5a0d;--orange-bg:#2a1d08;
+  --red:#ff6b6b;--red-dim:#8a2020;--red-bg:#2a0f0f;
+  --teal:#2dd6c8;--teal-dim:#178077;--teal-bg:#0d2826;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;padding:0;min-height:100vh}
+.header{background:linear-gradient(135deg,#0f0f0e 0%,#141412 50%,#0f0f0e 100%);border-bottom:1px solid var(--border);padding:2rem 1.5rem 1.5rem;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(45,214,140,.07) 0%,transparent 70%);pointer-events:none}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.title-block h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--text);line-height:1.2}
+.title-block h1 span{color:var(--green)}
+.title-block p{font-size:12px;color:var(--muted);margin-top:.35rem;line-height:1.5}
+.deadline-badge{background:var(--orange-bg);border:1px solid var(--orange-dim);border-radius:8px;padding:.5rem .9rem;text-align:center;flex-shrink:0}
+.deadline-badge .dl-label{font-size:10px;color:var(--orange);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+.deadline-badge .dl-val{font-size:18px;font-weight:700;font-family:'Syne',sans-serif;color:var(--text);line-height:1.2}
+.prog-section{padding:.9rem 1.5rem;background:var(--surface);border-bottom:1px solid var(--border)}
+.prog-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:.5rem}
+.prog-track{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-bottom:.7rem}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:2px;transition:width .4s ease}
+.phase-dots{display:flex;gap:8px;flex-wrap:wrap}
+.phase-dot{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.phase-dot .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.filters{padding:.7rem 1.5rem;background:var(--surface);border-bottom:1px solid var(--border);display:flex;gap:5px;flex-wrap:wrap}
+.fil{padding:4px 11px;border:1px solid var(--border2);border-radius:14px;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;font-family:'JetBrains Mono',monospace;transition:all .15s;letter-spacing:.02em}
+.fil:hover{border-color:var(--faint);color:var(--text)}
+.fil.on{background:var(--surface2);color:var(--text);border-color:var(--border2)}
+.mods{display:flex;flex-direction:column;gap:8px;padding:1rem 1.5rem}
+.mod{border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.mod:hover{border-color:var(--border2)}
+.mod.open{border-color:var(--border2)}
+.mod[data-phase="1"]{border-left:3px solid var(--green-dim)}
+.mod[data-phase="1"].open{border-left-color:var(--green)}
+.mod[data-phase="2"]{border-left:3px solid var(--blue-dim)}
+.mod[data-phase="2"].open{border-left-color:var(--blue)}
+.mod[data-phase="3"]{border-left:3px solid var(--purple-dim)}
+.mod[data-phase="3"].open{border-left-color:var(--purple)}
+.mod[data-phase="4"]{border-left:3px solid var(--orange-dim)}
+.mod[data-phase="4"].open{border-left-color:var(--orange)}
+.mod[data-phase="5"]{border-left:3px solid var(--teal-dim)}
+.mod[data-phase="5"].open{border-left-color:var(--teal)}
+.mhd{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none;background:var(--surface);transition:background .12s}
+.mhd:hover{background:var(--surface2)}
+.mod.open .mhd{background:var(--surface2)}
+.mnum{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;min-width:24px;color:var(--faint)}
+.mtitle{flex:1;font-size:13px;font-weight:500;font-family:'Syne',sans-serif;color:var(--text)}
+.mphase{font-size:10px;padding:2px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace;white-space:nowrap;font-weight:500}
+.mprg{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;white-space:nowrap;margin-right:2px}
+.marr{font-size:9px;color:var(--muted);transition:transform .2s;display:inline-block}
+.mod.open .marr{transform:rotate(180deg)}
+.mbody{display:none;padding:14px;border-top:1px solid var(--border);background:var(--bg)}
+.mod.open .mbody{display:block}
+.ctx-box{border-radius:8px;padding:10px 13px;margin-bottom:12px;border-left:3px solid;background:rgba(255,255,255,.02)}
+.ctx-box .ctx-label{font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.ctx-box p{font-size:12px;line-height:1.55;color:var(--muted)}
+.proj-box{border:1px solid var(--orange-dim);border-radius:8px;padding:10px 13px;margin-bottom:12px;background:var(--orange-bg)}
+.proj-box h4{font-size:10px;font-weight:600;color:var(--orange);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.proj-box p{font-size:12px;color:#c89a60;line-height:1.55}
+.proj-stack{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.stag{font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(245,166,35,.1);border:1px solid var(--orange-dim);color:var(--orange);font-family:'JetBrains Mono',monospace}
+.sec{margin-bottom:12px}
+.stitle{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.item{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:7px;cursor:pointer;transition:background .1s;user-select:none}
+.item:hover{background:var(--surface)}
+.item.done{opacity:.4}
+.cb{width:15px;height:15px;border:1.5px solid var(--faint);border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px;background:transparent;transition:all .15s}
+.item.done .cb{background:var(--green-bg);border-color:var(--green-dim);color:var(--green)}
+.ilbl{font-size:12px;font-weight:500;line-height:1.4;color:var(--text)}
+.item.done .ilbl{text-decoration:line-through;color:var(--faint)}
+.inote{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
+.res-wrap{margin-top:12px}
+.res-block{background:var(--surface);border-radius:8px;padding:10px 13px;margin-bottom:7px;border:1px solid var(--border)}
+.res-block h4{font-size:10px;font-weight:600;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.res-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.res-row:last-child{border-bottom:none}
+.res-name{flex:1;line-height:1.45;color:var(--text)}
+.res-sub{font-size:10px;color:var(--muted);display:block;margin-top:1px}
+.badge{font-size:10px;padding:1px 7px;border-radius:4px;margin-left:5px;font-weight:500;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.badge-ud{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-dim)}
+.badge-ai{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-dim)}
+.badge-yt{background:var(--red-bg);color:var(--red);border:1px solid var(--red-dim)}
+.tag-free{color:var(--green);font-size:10px;font-weight:500;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.tag-paid{color:var(--orange);font-size:10px;font-weight:500;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.ai-tip{border:1px solid var(--purple-dim);border-radius:7px;padding:8px 11px;margin-bottom:10px;background:var(--purple-bg)}
+.ai-tip .ai-label{font-size:10px;font-weight:600;color:var(--purple);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px}
+.ai-tip p{font-size:11px;color:#8a7acc;line-height:1.5}
+.pbar{height:2px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-bottom:12px}
+.pfill{height:100%;border-radius:2px;transition:width .3s}
+.og{background:linear-gradient(135deg,#0d2b1e,#0d1e35);border:1px solid var(--green-dim);border-radius:10px;padding:12px 15px;margin:0 1.5rem 1rem}
+.og h3{font-size:13px;font-family:'Syne',sans-serif;font-weight:600;color:var(--green);margin-bottom:6px}
+.og p{font-size:12px;color:var(--muted);line-height:1.6}
+.og strong{color:var(--text)}
+.ph1{background:var(--green-bg);color:var(--green);border:1px solid var(--green-dim)}
+.ph2{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-dim)}
+.ph3{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-dim)}
+.ph4{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-dim)}
+.ph5{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-dim)}
+.phase-chips{display:flex;gap:6px;flex-wrap:wrap}
+.phase-chip{font-size:11px;padding:3px 9px;border-radius:5px;font-family:'JetBrains Mono',monospace}
+@media(max-width:480px){.header{padding:1.25rem 1rem 1rem}.mods{padding:.75rem 1rem;gap:6px}.filters{padding:.6rem 1rem}.prog-section{padding:.75rem 1rem}.og{margin:0 1rem .75rem}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="title-block">
+      <h1>Roadmap to <span>October</span></h1>
+      <p>Mid-level job-ready &middot; Full Stack + AI &middot; 5 months &middot; Sydney, AU</p>
+    </div>
+    <div class="deadline-badge">
+      <div class="dl-label">Deadline</div>
+      <div class="dl-val">Oct 2026</div>
+    </div>
+  </div>
+  <div class="phase-chips">
+    <span class="phase-chip ph1">Phase 1 &mdash; May</span>
+    <span class="phase-chip ph2">Phase 2 &mdash; Jun</span>
+    <span class="phase-chip ph3">Phase 3 &mdash; Jul</span>
+    <span class="phase-chip ph4">Phase 4 &mdash; Aug</span>
+    <span class="phase-chip ph5">Phase 5 &mdash; Sep</span>
+  </div>
+</div>
+
+<div class="og">
+  <h3>Anti-overwhelm rule</h3>
+  <p><strong>One module at a time.</strong> Ed Donner runs in parallel every month &mdash; 30 min/day. Don't jump ahead. <strong>A finished project beats ten half-done courses.</strong> Your big Senior roadmap stays in backlog &mdash; it is not going anywhere.</p>
+</div>
+
+<div class="prog-section">
+  <div class="prog-labels">
+    <span id="ov-l">0 of 0 items complete</span>
+    <span id="ov-p">0%</span>
+  </div>
+  <div class="prog-track"><div class="prog-fill" id="ov-f" style="width:0%"></div></div>
+  <div class="phase-dots" id="phase-dots"></div>
+</div>
+
+<div class="filters" id="fil"></div>
+<div class="mods" id="mods"></div>
+
+<script>
+const KEY='oct_roadmap_v1';
+let ck={};
+try{const s=localStorage.getItem(KEY);if(s)ck=JSON.parse(s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ck));}catch(e){}}
+
+const PHASES=[
+  {id:1,label:'Phase 1 — May',cls:'ph1',color:'#2dd68c'},
+  {id:2,label:'Phase 2 — Jun',cls:'ph2',color:'#4a9eff'},
+  {id:3,label:'Phase 3 — Jul',cls:'ph3',color:'#9b7fff'},
+  {id:4,label:'Phase 4 — Aug',cls:'ph4',color:'#f5a623'},
+  {id:5,label:'Phase 5 — Sep',cls:'ph5',color:'#2dd6c8'},
+];
+
+const M=[
+{n:'01',phase:1,t:'SOLID & DDD — When to Use What',
+focus:'You know the concepts. This month is about the mental model of WHEN to apply them, not just WHAT they are. Clarity beats new knowledge.',
+proj:{desc:'Refactor a real Node.js project you already wrote. Identify one SOLID violation and fix it. Identify one domain concept and extract it into an Entity or Value Object. Write a README explaining the decision. Push to GitHub.',stack:['TypeScript','Node.js','GitHub']},
+ai:'Clean domain layers = clean AI integration. SOLID makes LLM pipelines testable and swappable (Strategy pattern for provider switching).',
+secs:[
+{t:'SOLID — applied thinking',dot:'#2dd68c',i:[
+{id:'s1',l:'Single Responsibility: one reason to change',n:'Ask: who would ask me to change this? If two different stakeholders would — split it.'},
+{id:'s2',l:'Open/Closed: extend without modifying',n:'Add a new LLM provider without touching existing code. Use interfaces.'},
+{id:'s3',l:'Liskov Substitution: subtypes honour contracts',n:'If you need to check which subclass you have, the design is broken.'},
+{id:'s4',l:'Interface Segregation: small focused interfaces',n:'A service that only reads should not depend on an interface that also writes.'},
+{id:'s5',l:'Dependency Inversion: depend on abstractions',n:'Your use cases should not import PostgreSQL directly. They import a Repository interface.'},
+]},
+{t:'DDD — clarity on when to use',dot:'#9b7fff',i:[
+{id:'d1',l:'When does DDD make sense?',n:'Complex domain with real business rules. NOT for CRUD apps. NOT for scripts. NOT for prototypes.'},
+{id:'d2',l:'Ubiquitous Language: shared names with the business',n:'"Order" means the same thing in code and in conversation with stakeholders.'},
+{id:'d3',l:'Entity vs Value Object — the real difference',n:'Entity = has identity (User has an id). Value Object = immutable, no identity (Email, Money amount).'},
+{id:'d4',l:'Aggregate Root — one entry point per cluster',n:'You access OrderItems through Order, never directly. Order is the root.'},
+{id:'d5',l:'Domain Service — logic that belongs to no single entity',n:'TransferFunds operates on two Accounts. It lives in a Domain Service, not in Account.'},
+{id:'d6',l:'Repository pattern — interface in domain, impl in infra',n:'Domain defines IUserRepository. PostgresUserRepository implements it in infrastructure layer.'},
+{id:'d7',l:'Domain Events — something important happened',n:'OrderPlaced, UserRegistered. Emitted after state changes. Foundation for triggering AI pipelines.'},
+]},
+{t:'Make it real',dot:'#f5a623',i:[
+{id:'d8',l:'Is this a CRUD app or a complex domain? Decide explicitly.',n:'CRUD app: simple service layer is fine. Complex domain with business rules: consider DDD.'},
+{id:'d9',l:'Refactor one real file you own applying one SOLID principle',n:'No tutorial. Your actual code. Commit before and after. Write a comment explaining what you changed.'},
+{id:'d10',l:'Identify one domain concept in a project and name it correctly',n:'This is the highest-value DDD exercise. Naming things correctly is architecture.'},
+]}
+],
+resources:[
+{cat:'Free reading (alongside this module)',items:[
+{name:'khalilstemmler.com — SOLID in TypeScript series',badge:null,free:true,note:'Best practical SOLID reference for Node.js devs. Read one article per SOLID principle.'},
+{name:'khalilstemmler.com — DDD with TypeScript series',badge:null,free:true,note:'One article per DDD concept. Read alongside the checklist above.'},
+{name:'refactoring.guru — Design Patterns',badge:null,free:true,note:'Reference for when you need a pattern name. Do not read front to back.'},
+]},
+{cat:'Parallel — every day this month',items:[
+{name:'Ed Donner — AI Engineer Core Track',badge:'ai',free:false,note:'30 min/day minimum. Do not skip. This runs in parallel all of May.'},
+]}
+]},
+
+{n:'02',phase:1,t:'Git & GitHub — Professional Workflow',
+focus:'You use Git. This is about using it the way Australian dev teams work. Branch strategy, clean history, GitHub as your portfolio.',
+proj:{desc:'Create a GitHub repo with: branch protection on main, a PR template (.github/pull_request_template.md), a proper README. Make at least one merged PR from a feature branch. This repo pattern is the base for all future projects.',stack:['Git','GitHub','Markdown']},
+ai:'Version control for prompts, eval datasets and AI pipeline code. Same workflow, more important to get right.',
+secs:[
+{t:'Workflow that teams use',dot:'#2dd68c',i:[
+{id:'g1',l:'Feature branch workflow: branch then PR then review then merge',n:'Never commit directly to main. This is non-negotiable on every Australian team you will join.'},
+{id:'g2',l:'Conventional Commits: feat, fix, chore, refactor, docs',n:'feat(auth): add JWT refresh token. Enables changelogs and semantic versioning. Looks professional.'},
+{id:'g3',l:'Interactive rebase: squash WIP commits before opening a PR',n:'git rebase -i HEAD~3. Clean history signals experience.'},
+{id:'g4',l:'Resolving merge conflicts confidently',n:'Use VS Code merge editor. Understand: ours vs theirs vs both. No fear.'},
+{id:'g5',l:'git stash, cherry-pick, bisect',n:'git bisect finds which commit introduced a bug. Practical power commands.'},
+]},
+{t:'GitHub as your portfolio',dot:'#4a9eff',i:[
+{id:'g6',l:'README that explains the why, not just the what',n:'Problem solved, tech choices made, how to run it. Recruiters read this first.'},
+{id:'g7',l:'Pin 3 repos: Ed Donner project + Document Intelligence + one older project',n:'Nothing half-done pinned. Every pinned repo has a README.'},
+{id:'g8',l:'PR descriptions and issue templates',n:'Describe what changed and why. This is your written communication sample to hiring teams.'},
+]}
+],
+resources:[
+{cat:'Free',items:[
+{name:'Pro Git Book — git-scm.com/book (free online)',badge:null,free:true,note:'Chapters 2, 3 and 7 are the ones that matter. Skip the rest.'},
+{name:'Conventional Commits spec — conventionalcommits.org',badge:null,free:true,note:''},
+]}
+]},
+
+{n:'03',phase:2,t:'Docker — Enough to Be Dangerous',
+focus:'You need to containerise your own projects and not be lost when a team uses Docker Compose. You do NOT need Kubernetes yet — that is post-October.',
+proj:{desc:'Take any Node.js + PostgreSQL project (can reuse Ed Donner work). Write a multi-stage Dockerfile. Add docker-compose.yml with app + postgres + redis. Add .env.example. Verify it runs from a fresh clone with docker compose up --build.',stack:['Docker','docker-compose','Node.js','PostgreSQL','Redis']},
+ai:'LLM inference services, vector databases and AI workers all run in containers. Reproducible AI dev environments start here.',
+secs:[
+{t:'Core Docker',dot:'#4a9eff',i:[
+{id:'dk1',l:'Containers vs VMs: what isolation actually means',n:'Namespaces and cgroups. Why containers start in milliseconds.'},
+{id:'dk2',l:'Core CLI: run, ps, stop, rm, images, pull, exec, logs',n:'Drive Docker entirely from terminal. No GUI needed.'},
+{id:'dk3',l:'Dockerfile: FROM, RUN, COPY, WORKDIR, EXPOSE, CMD',n:'Every instruction = a layer. Order matters for cache. COPY package*.json before COPY . .'},
+{id:'dk4',l:'Multi-stage builds: separate build image from runtime image',n:'node:20 to build, node:20-alpine to run. 10x smaller image. Fewer vulnerabilities.'},
+{id:'dk5',l:'Volumes: named vs bind mount',n:'Data that outlives the container. Use named volumes in compose for databases.'},
+]},
+{t:'Docker Compose and practical use',dot:'#9b7fff',i:[
+{id:'dk6',l:'docker-compose.yml: services, networks, volumes, depends_on',n:'Orchestrate your entire local dev stack in one YAML. This is what teams use daily.'},
+{id:'dk7',l:'Environment variables and .env files',n:'Never hardcode secrets in Dockerfile. .env + .env.example pattern.'},
+{id:'dk8',l:'Health checks: app waits for DB to be ready',n:'healthcheck + condition: service_healthy in depends_on. Prevents startup race conditions.'},
+{id:'dk9',l:'Pushing to a registry: GHCR or Docker Hub',n:'Tag, push, pull from another machine. Complete the loop.'},
+]}
+],
+resources:[
+{cat:'Free — do this first',items:[
+{name:'TechWorld with Nana — Docker Tutorial for Beginners (YouTube)',badge:'yt',free:true,note:'~4 hours. Best free Docker course available. Code along the whole way.'},
+{name:'Docker official docs — Getting Started',badge:null,free:true,note:''},
+]},
+{cat:'Udemy — if you want structured',items:[
+{name:'Docker Mastery — Bret Fisher (Docker Captain)',badge:'ud',free:false,note:'Gold standard on Udemy. Covers everything you need and more.'},
+]}
+]},
+
+{n:'04',phase:2,t:'SQL & PostgreSQL — Refresh to Solid',
+focus:'You know SQL but are rusty. Get back to confident this month. Focus on the queries that appear in Australian tech interviews and add pgvector for AI readiness.',
+proj:{desc:'Design a SaaS schema (users, workspaces, documents). Write: 5 JOINs, 2 CTEs, 1 window function, 1 EXPLAIN ANALYSE to identify a missing index and fix it. Add pgvector extension and store 5 embeddings. Query by similarity.',stack:['PostgreSQL','pgvector','SQL','Docker']},
+ai:'pgvector stores embeddings for RAG pipelines. SQL is the grounding data source for LLMs. Know it before you build AI on top of it.',
+secs:[
+{t:'Refresh: queries you use weekly',dot:'#4a9eff',i:[
+{id:'sq1',l:'JOINs refresher: INNER, LEFT, RIGHT, FULL — write each from memory',n:''},
+{id:'sq2',l:'Aggregations: GROUP BY, HAVING, COUNT, SUM, AVG',n:''},
+{id:'sq3',l:'CTEs (WITH): break complex queries into readable named steps',n:''},
+{id:'sq4',l:'Window functions: ROW_NUMBER, RANK, LAG, LEAD',n:'Used in analytics. Appears in mid and senior SQL interviews.'},
+{id:'sq5',l:'Subqueries vs JOINs: when to use which',n:'EXISTS is usually faster than IN for large sets. Know why.'},
+]},
+{t:'Performance and design',dot:'#2dd68c',i:[
+{id:'sq6',l:'Indexes: B-Tree basics, when to create, when not to',n:'Index columns you filter or JOIN on. Not every column.'},
+{id:'sq7',l:'EXPLAIN ANALYSE: read an execution plan',n:'Seq Scan vs Index Scan. Find one slow query in your project. Fix it.'},
+{id:'sq8',l:'Transactions and ACID',n:'BEGIN / COMMIT / ROLLBACK. Isolation levels explained simply.'},
+{id:'sq9',l:'JSONB: store and query semi-structured data',n:'Useful for AI response storage, metadata, and flexible schemas.'},
+]},
+{t:'pgvector — AI readiness',dot:'#9b7fff',i:[
+{id:'sq10',l:'What is a vector embedding? (conceptual)',n:'A list of numbers that represents meaning. Similar meaning = similar vectors. 2 min explanation.'},
+{id:'sq11',l:'pgvector: CREATE EXTENSION, add a vector column, insert embeddings',n:'Store embeddings directly in PostgreSQL. No extra vector database needed.'},
+{id:'sq12',l:'Cosine similarity search: find the 5 most similar documents',n:'SELECT * FROM docs ORDER BY embedding <=> $1 LIMIT 5. Run this against real data.'},
+]}
+],
+resources:[
+{cat:'Free',items:[
+{name:'PostgreSQL official docs — Tutorial section',badge:null,free:true,note:''},
+{name:'pgvector GitHub README — github.com/pgvector/pgvector',badge:null,free:true,note:'Node.js and Python examples included'},
+{name:'Use The Index, Luke — use-the-index-luke.com',badge:null,free:true,note:'Best free resource for understanding indexes. Read Part 1 and 2.'},
+]},
+{cat:'Udemy — optional refresh',items:[
+{name:'The Complete SQL Bootcamp — Jose Portilla',badge:'ud',free:false,note:'Skip to intermediate sections. Good for drilling queries.'},
+]}
+]},
+
+{n:'05',phase:3,t:'Node.js — From Rusty to Confident',
+focus:'You have done Node.js courses. This month refreshes the parts that come up in Australian interviews and real projects: async patterns, TypeScript depth, and basic testing.',
+proj:{desc:'Build a document upload API: multipart upload, stream the file to S3 (or local MinIO in Docker), pass through to an LLM for processing (reuse Ed Donner work), return a structured JSON summary. Full TypeScript. Tests with Vitest.',stack:['Node.js','TypeScript','Fastify','Vitest','AWS S3 or MinIO']},
+ai:'Node.js streams are how you handle LLM token streaming. Async patterns are how you chain and orchestrate AI calls.',
+secs:[
+{t:'Async patterns — the ones that trip people up',dot:'#9b7fff',i:[
+{id:'nd1',l:'Event loop phases: understand it visually once and for all',n:'Timers, I/O, Poll, Check. Why setImmediate vs setTimeout(fn,0) differ.'},
+{id:'nd2',l:'Promise patterns: allSettled, race, any — when to use each',n:'allSettled to run all LLM calls and collect results even if some fail.'},
+{id:'nd3',l:'async/await error handling done right',n:'try/catch placement matters. Never swallow errors silently.'},
+{id:'nd4',l:'Streams and backpressure basics',n:'Why you need streams for large files and LLM token responses. pipe() and async generators.'},
+]},
+{t:'TypeScript — fill the gaps',dot:'#4a9eff',i:[
+{id:'ts1',l:'Generics: write one from scratch without copying',n:'function wrap<T>(val: T): Result<T>. Understand it, do not just paste it.'},
+{id:'ts2',l:'Utility types: Partial, Required, Pick, Omit, Record',n:'Used everywhere. Know them by memory. They come up in interviews.'},
+{id:'ts3',l:'Discriminated unions for result types',n:'type Result<T> = { ok: true; data: T } | { ok: false; error: string }. Perfect for LLM responses.'},
+{id:'ts4',l:'Zod: runtime validation + automatic TypeScript inference',n:'z.infer<typeof schema>. Validate API inputs and LLM JSON outputs.'},
+]},
+{t:'Testing basics',dot:'#2dd68c',i:[
+{id:'tt1',l:'Vitest: write a unit test for a pure function',n:'Faster than Jest, compatible API. One function per test.'},
+{id:'tt2',l:'Mocking: vi.mock and vi.spyOn',n:'Mock the LLM API call in tests. Mock the database repository.'},
+{id:'tt3',l:'Supertest: test an HTTP endpoint',n:'Test your Fastify/Express routes without spinning up a real server.'},
+]}
+],
+resources:[
+{cat:'Udemy — you already own this',items:[
+{name:'Grider: Node JS Advanced Concepts — Event Loop section',badge:'ud',free:true,note:'Still the best visual explanation. Do this section only.'},
+{name:'Grider: Node JS Advanced Concepts — Worker Threads section',badge:'ud',free:true,note:'Worth doing. Skip Travis CI sections — outdated.'},
+{name:'Grider: Node JS Advanced Concepts — AWS S3 upload section',badge:'ud',free:true,note:'Presigned URLs pattern. Timeless and relevant.'},
+]},
+{cat:'Free',items:[
+{name:'Fastify docs — Getting Started + Plugins',badge:null,free:true,note:''},
+{name:'Zod docs — zod.dev',badge:null,free:true,note:''},
+{name:'Vitest docs — vitest.dev',badge:null,free:true,note:''},
+]},
+{cat:'Parallel this month',items:[
+{name:'Ed Donner — AI Engineer Agentic Track',badge:'ai',free:false,note:'Start Agentic track this month. 30 min/day.'},
+]}
+]},
+
+{n:'06',phase:3,t:'REST APIs — Production Patterns',
+focus:'You can build APIs. This is about building them the way experienced Australian teams expect: versioned, documented, validated, secured.',
+proj:{desc:'Extend your document upload API: add OpenAPI spec with Swagger UI auto-generated, input validation with Zod on every route, JWT auth middleware, rate limiting with Redis, consistent error response shape. Document the auth flow in the README.',stack:['Fastify','OpenAPI','Zod','JWT','Redis','Node.js']},
+ai:'LLM endpoints need rate limiting (API costs), input validation (prevent prompt injection), and structured errors for the frontend.',
+secs:[
+{t:'API design that signals experience',dot:'#9b7fff',i:[
+{id:'ap1',l:'Consistent error response shape across every route',n:'{ error: { code, message, details } }. Always the same shape. Never raw stack traces to clients.'},
+{id:'ap2',l:'API versioning: /v1/ prefix',n:'Simple, explicit, universally understood. Do not over-engineer.'},
+{id:'ap3',l:'Pagination: cursor-based vs offset — know the trade-off',n:'Cursor for feeds and real-time. Offset for simple static lists.'},
+{id:'ap4',l:'Idempotency: PUT and DELETE are safe to retry',n:'POST is not idempotent. Idempotency keys for operations with side effects.'},
+{id:'ap5',l:'OpenAPI/Swagger: generate docs from your Fastify schema',n:'@fastify/swagger + @fastify/swagger-ui. Recruiters and teammates love a Swagger UI.'},
+]},
+{t:'Auth and security basics',dot:'#f5a623',i:[
+{id:'ap6',l:'JWT: structure, signing algorithms, expiry, refresh tokens',n:'Access token short-lived (15 min). Refresh token long-lived. Never store access tokens in localStorage.'},
+{id:'ap7',l:'Middleware execution order: auth then business logic',n:'If auth fails, the request never reaches the route handler.'},
+{id:'ap8',l:'Rate limiting per user and per IP with Redis',n:'Token bucket algorithm. Protect your LLM endpoints especially — they cost money per call.'},
+{id:'ap9',l:'Input validation with Zod on every route: never trust user input',n:''},
+]}
+],
+resources:[
+{cat:'Free',items:[
+{name:'OpenAPI Specification — swagger.io/docs',badge:null,free:true,note:''},
+{name:'OWASP API Security Top 10',badge:null,free:true,note:'Read the first 5. These come up in security-conscious AU teams.'},
+]}
+]},
+
+{n:'07',phase:4,t:'AI Engineering — RAG + Agents (Core Project Month)',
+focus:'August is the AI month. Ed Donner Agentic track is your primary resource. Build the Document Intelligence project — this is your portfolio centrepiece that you will demo in every interview.',
+proj:{desc:'Document Intelligence App: upload a PDF, chunk and embed with pgvector, ask questions in natural language, get answers with source citations, streaming responses. Next.js frontend + Node.js or Python backend. Deploy to Railway or Render. This is the project you demo in October interviews.',stack:['Node.js or Python','FastAPI or Fastify','pgvector','OpenAI API','Next.js','LangGraph','Railway or Render']},
+ai:'This IS the AI work. Full RAG pipeline end to end. LLM API integration. Vector search. Streaming to frontend. Agents.',
+secs:[
+{t:'LLM fundamentals — explain these in interviews',dot:'#9b7fff',i:[
+{id:'ai1',l:'How LLMs work: tokens, context window, temperature',n:'Be able to explain in 2 minutes to a non-technical person. This is an interview question.'},
+{id:'ai2',l:'Prompt engineering: system prompts, few-shot, chain-of-thought',n:'Structured prompts with XML tags. Instructions for consistent output format.'},
+{id:'ai3',l:'LLM APIs: messages array, role, content, tool use',n:'OpenAI and Anthropic APIs. Function calling / tool use. This is Node.js territory.'},
+{id:'ai4',l:'Streaming responses: SSE from API to frontend',n:'Token-by-token streaming. Node.js readable streams + React useEffect or Vercel AI SDK.'},
+{id:'ai5',l:'Hallucination: why it happens and how RAG reduces it',n:'Ground the model in retrieved context. Instruct it to say I do not know when context is insufficient.'},
+]},
+{t:'RAG pipeline — build this',dot:'#f5a623',i:[
+{id:'ai6',l:'Chunking: fixed size vs semantic, overlap strategy',n:'512 tokens with 50-token overlap is a safe start. Chunk size directly affects retrieval quality.'},
+{id:'ai7',l:'Embeddings: generate with text-embedding-3-small, store in pgvector',n:'One API call per chunk at ingestion time. Store the vector. Never regenerate unless you change the model.'},
+{id:'ai8',l:'Retrieval: top-k similarity search, threshold filtering',n:'Retrieve top 5, filter by cosine similarity threshold (e.g. > 0.7).'},
+{id:'ai9',l:'Augmented generation: inject retrieved context into prompt',n:'System prompt with retrieved chunks. Clear instruction to cite sources.'},
+]},
+{t:'Agents — Ed Donner Agentic track',dot:'#2dd6c8',i:[
+{id:'ai11',l:'What is an agent: LLM + tools + loop',n:'The model decides which tool to call. You define the tools. The loop continues until done.'},
+{id:'ai12',l:'Tool use / function calling: define, call, parse result',n:'JSON schema defines the tool. Model returns tool_call. You execute. Return result to model.'},
+{id:'ai13',l:'LangGraph: nodes, edges, state machine',n:'Stateful agent graphs. Conditional routing. Use for multi-step document processing.'},
+{id:'ai14',l:'Guardrails: max iterations, timeout, fallback',n:'Agents can loop forever. Set max_iterations. Always have a fallback path.'},
+]},
+{t:'Production basics for AI apps',dot:'#4a9eff',i:[
+{id:'ai15',l:'Observability: log every LLM call with latency, tokens and cost',n:'Langfuse free tier. Or structured JSON logs. You need this to debug production.'},
+{id:'ai16',l:'Cost control: count tokens before sending, set max_tokens',n:'tiktoken (Python) or js-tiktoken (Node). Estimate cost per request. Build a budget.'},
+{id:'ai17',l:'Error handling: rate limits, timeouts, model errors',n:'Retry with exponential backoff. Never let an OpenAI API error crash the user experience.'},
+]}
+],
+resources:[
+{cat:'Primary resources',items:[
+{name:'Ed Donner — AI Engineer Agentic Track',badge:'ai',free:false,note:'Main resource this month. Go deep. Build every project.'},
+{name:'Ed Donner — AI Engineer Production Track',badge:'ai',free:false,note:'Start now for the deployment and observability sections.'},
+]},
+{cat:'Free',items:[
+{name:'Langfuse docs — langfuse.com (free tier)',badge:null,free:true,note:'LLM observability. Add to your project before deploying.'},
+{name:'OpenAI Cookbook — github.com/openai/openai-cookbook',badge:null,free:true,note:'RAG and agent examples in Python and Node.js.'},
+{name:'Vercel AI SDK docs — sdk.vercel.ai',badge:null,free:true,note:'useChat hook. Built-in streaming for Next.js.'},
+]},
+{cat:'Udemy — optional Python supplement',items:[
+{name:'Full Stack Generative and Agentic AI with Python',badge:'ud',free:false,note:'If you want a structured Python + LangGraph + RAG course alongside Ed Donner.'},
+]}
+]},
+
+{n:'08',phase:5,t:'React & Next.js — Get Current',
+focus:'You know React. This is a targeted update to the patterns Australian teams use in 2026. App Router, Server Components, and the Vercel AI SDK for streaming LLM responses.',
+proj:{desc:'Build the frontend for Document Intelligence: App Router with nested layouts, Server Component for the document list (direct DB fetch, no useEffect), Client Component for the chat interface, streaming UI with Vercel AI SDK useChat hook, loading states that feel good. Deploy to Vercel.',stack:['Next.js 15','React','TypeScript','TanStack Query','Vercel AI SDK','Vercel']},
+ai:'Streaming UI for LLM token responses. useChat hook from Vercel AI SDK. Proper loading and error states for AI features.',
+secs:[
+{t:'Next.js App Router — what changed from Pages Router',dot:'#2dd6c8',i:[
+{id:'nx1',l:'Default is Server Component: opt into client with "use client"',n:'Mental model shift. Most of your component tree has no JavaScript sent to the browser.'},
+{id:'nx2',l:'React Server Components: async components, direct data fetching',n:'fetch() inside the component. No useEffect for initial data. No loading state needed.'},
+{id:'nx3',l:'Client Components: only when you need hooks or browser APIs',n:'Chat input, upload button, any interactive element. Keep them at the leaves of the tree.'},
+{id:'nx4',l:'Server Actions: mutations without a separate API route',n:'async function marked with "use server". Form submissions, document uploads.'},
+{id:'nx5',l:'Streaming with Suspense: wrap slow RSCs in Suspense fallback',n:'Granular loading states. The shell loads instantly. Heavy parts stream in.'},
+{id:'nx6',l:'Caching in Next.js 15: no cache by default, opt in explicitly',n:'unstable_cache, revalidatePath, revalidateTag. Understand the change from v13/14.'},
+]},
+{t:'React patterns that matter',dot:'#4a9eff',i:[
+{id:'re1',l:'Custom hooks: extract stateful logic into reusable hooks',n:'useDocumentUpload, useStreamingChat. Separates concerns and makes testing easier.'},
+{id:'re2',l:'TanStack Query: server state vs local UI state',n:'Remote data belongs in TanStack Query. UI state belongs in useState. Do not mix.'},
+{id:'re3',l:'Error boundaries: wrap AI features for graceful failure',n:'LLMs fail. Rate limits happen. Error boundaries prevent the whole page from crashing.'},
+{id:'re4',l:'Performance: profile before optimising, not before',n:'memo, useMemo, useCallback only after profiling. Premature optimisation wastes time.'},
+]}
+],
+resources:[
+{cat:'Free',items:[
+{name:'Next.js docs — App Router section (nextjs.org/docs)',badge:null,free:true,note:'Primary source. Fundamentals, Data Fetching, and Caching sections.'},
+{name:'Jack Herrington — YouTube channel',badge:'yt',free:true,note:'Principal Engineer. Best advanced React and Next.js content on YouTube right now.'},
+{name:'Vercel AI SDK docs — sdk.vercel.ai',badge:null,free:true,note:'useChat hook. Built for Next.js. Add streaming in 20 lines of code.'},
+]}
+]},
+
+{n:'09',phase:5,t:'AWS — The Minimum You Need',
+focus:'You do not need to be an AWS expert by October. You need to not be lost when a team mentions S3, Lambda, or RDS. Learn by deploying your own project to real AWS infrastructure.',
+proj:{desc:'Deploy Document Intelligence to AWS: EC2 or App Runner for the backend, RDS PostgreSQL with pgvector enabled, S3 for PDF storage with presigned URLs, environment variables via SSM Parameter Store, CloudWatch logs. No Kubernetes. No Terraform. Just get it running on real AWS.',stack:['AWS EC2 or App Runner','AWS RDS PostgreSQL','AWS S3','AWS SSM','AWS CloudWatch','IAM']},
+ai:'AWS is where Australian teams deploy AI apps. Lambda for serverless LLM endpoints, S3 for document storage, RDS+pgvector for embeddings.',
+secs:[
+{t:'Core services — know these cold',dot:'#2dd6c8',i:[
+{id:'aw1',l:'IAM: users, roles, policies, least privilege principle',n:'Everything in AWS depends on IAM being correct. Never use root credentials after account setup.'},
+{id:'aw2',l:'EC2: launch an instance, SSH in, deploy a Node.js app',n:'t3.micro free tier. Security groups as a firewall. Elastic IP for a static address.'},
+{id:'aw3',l:'S3: buckets, objects, presigned URLs for direct browser uploads',n:'Public vs private buckets. Presigned URLs let users upload directly without going through your server.'},
+{id:'aw4',l:'RDS: managed PostgreSQL, connect securely from your app',n:'Security groups, subnet groups, connection string. Enable pgvector extension via parameter group.'},
+{id:'aw5',l:'Lambda: deploy a function, configure env vars, understand cold starts',n:'Node.js 20 runtime. Handler pattern. Cold starts are real — design for them.'},
+]},
+{t:'Practical skills',dot:'#4a9eff',i:[
+{id:'aw6',l:'SSM Parameter Store: no secrets in environment variables or .env',n:'Fetch secrets at app startup from SSM. Rotate without redeploying.'},
+{id:'aw7',l:'CloudWatch: view logs from Lambda and EC2',n:'console.log goes to CloudWatch Logs. Set up one basic alarm for errors.'},
+{id:'aw8',l:'VPC basics: public subnet for app, private subnet for database',n:'Database should never be directly accessible from the internet.'},
+]},
+{t:'Certification — optional but valuable',dot:'#2dd68c',i:[
+{id:'aw9',l:'AWS Cloud Practitioner: is it worth getting before October?',n:'2-3 weeks of prep. Signals cloud literacy explicitly on your CV. Good ROI if you have time.'},
+]}
+],
+resources:[
+{cat:'Udemy — best in class',items:[
+{name:'Ultimate AWS Certified Developer Associate — Stephane Maarek',badge:'ud',free:false,note:'Gold standard. Use as a reference. Do not watch front to back — jump to the services you need.'},
+{name:'AWS Certified Cloud Practitioner — Stephane Maarek',badge:'ud',free:false,note:'Shorter. Good orientation before the Developer cert. If time is short, do this one.'},
+]},
+{cat:'Free',items:[
+{name:'AWS Skill Builder — Cloud Practitioner path',badge:null,free:true,note:'Official free prep. Use alongside Maarek.'},
+{name:'AWS Free Tier — aws.amazon.com/free',badge:null,free:true,note:'Deploy everything on free tier. 12 months. Do not just watch — deploy.'},
+]}
+]},
+
+{n:'10',phase:5,t:'Portfolio, CV & Interview Prep',
+focus:'October is the goal. September is about presenting yourself. Stop adding new things. Polish what you have. One strong project beats five half-finished ones.',
+proj:{desc:'Final polish: clean READMEs on every project, 3-minute Loom walkthrough of Document Intelligence (live demo + one architectural decision explained), updated LinkedIn, CV tailored for Australian mid-level roles, job alerts live on SEEK and Otta. Apply to 5 roles before October 1.',stack:['LinkedIn','GitHub','Loom','SEEK','Otta']},
+ai:'RAG, LangGraph, OpenAI API, pgvector, LLM observability are multipliers on your CV. List them explicitly.',
+secs:[
+{t:'Portfolio: what must be ready',dot:'#2dd6c8',i:[
+{id:'pf1',l:'Document Intelligence app: live, deployed, working, README complete',n:'This is your centrepiece. Must work. Must have a live URL. Must have a demo.'},
+{id:'pf2',l:'GitHub: 3 repos pinned, consistent commits, no dead repos without READMEs',n:'Consistent green squares matter. Hiring managers look at this.'},
+{id:'pf3',l:'Loom demo: 3 minutes walking through Document Intelligence',n:'Show it working. Explain one technical decision (why pgvector, why LangGraph). Confidence matters more than perfection.'},
+]},
+{t:'CV for the Australian market',dot:'#f5a623',i:[
+{id:'cv1',l:'1-2 pages. Results over responsibilities.',n:'Built X using Y which achieved Z. Not: was responsible for building APIs.'},
+{id:'cv2',l:'Skills section: be specific and current',n:'Node.js, TypeScript, React, Next.js, PostgreSQL, Docker, AWS, RAG pipelines, LangGraph, OpenAI API, pgvector.'},
+{id:'cv3',l:'Mid-level framing: confidence, not apology',n:'You have years of experience. You are re-entering after a break. Do not present as junior. Frame the AI skills as upskilling.'},
+{id:'cv4',l:'Cover letter for AU: short, direct, one specific thing about the company',n:'3 paragraphs max. Why you, why them, what you built.'},
+]},
+{t:'Interview preparation',dot:'#4a9eff',i:[
+{id:'iv1',l:'System design: explain Document Intelligence architecture from memory',n:'Draw the diagram. Explain every component and why. Why pgvector and not Pinecone? Why Next.js?'},
+{id:'iv2',l:'STAR format: prepare 5 situations',n:'Challenge overcome, conflict resolved, failure and lesson, decision made, project led. Write them out.'},
+{id:'iv3',l:'Technical questions to prepare for',n:'How does RAG work? What is a vector embedding? Explain Docker. JWT vs session? What is a Server Component?'},
+{id:'iv4',l:'Live coding: practise Easy and Medium on NeetCode.io',n:'DSA is still a filter in Australian tech interviews. Arrays, hashmaps, trees. 20 min per problem max.'},
+{id:'iv5',l:'Questions to ask the interviewer',n:'Tech stack, deployment frequency, AI roadmap, team size, what does success look like in 6 months.'},
+]},
+{t:'Job search',dot:'#2dd68c',i:[
+{id:'js1',l:'SEEK.com.au: alerts for full stack developer, Node.js developer, AI engineer',n:'Check daily. Apply within 24 hours of posting. Speed matters on SEEK.'},
+{id:'js2',l:'Otta.com: better for startup and tech-first roles',n:'Different companies than SEEK. Better signal-to-noise for software roles.'},
+{id:'js3',l:'LinkedIn: connect with AU tech recruiters and engineers',n:'AI Sydney and Machine Learning Sydney meetups on meetup.com.'},
+{id:'js4',l:'Attend one meetup before applying',n:'One in-person connection beats 10 cold applications. Seriously.'},
+]}
+],
+resources:[
+{cat:'Free',items:[
+{name:'SEEK.com.au',badge:null,free:true,note:'Primary Australian job board. Set up alerts now.'},
+{name:'Otta.com',badge:null,free:true,note:'Tech-first roles. Good for AI and full stack.'},
+{name:'NeetCode.io',badge:null,free:true,note:'Better than raw LeetCode. Structured by pattern. Start with Arrays and Hashmaps.'},
+{name:'AI Sydney — meetup.com/ai-sydney',badge:null,free:true,note:'Network in the Australian AI community.'},
+]}
+]}
+];
+
+function cntI(m){return m.secs.reduce((t,s)=>t+s.i.length,0)}
+function cntD(m){return m.secs.flatMap(s=>s.i).filter(x=>ck[x.id]).length}
+
+function toggleI(id,el){
+  ck[id]=!ck[id];save();
+  el.classList.toggle('done',!!ck[id]);
+  el.querySelector('.cb').textContent=ck[id]?'✓':'';
+  updAll();
+}
+
+function updAll(){
+  let tot=0,don=0;
+  const pt={},pd={};
+  PHASES.forEach(p=>{pt[p.id]=0;pd[p.id]=0;});
+  M.forEach((m,i)=>{
+    const t=cntI(m),d=cntD(m);
+    tot+=t;don+=d;
+    pt[m.phase]=(pt[m.phase]||0)+t;
+    pd[m.phase]=(pd[m.phase]||0)+d;
+    const pct=t?Math.round(d/t*100):0;
+    const pf=document.getElementById('pf'+i);
+    const pl=document.getElementById('pl'+i);
+    if(pf){pf.style.width=pct+'%';const p=PHASES.find(x=>x.id===m.phase);pf.style.background=p?p.color:'#888';}
+    if(pl)pl.textContent=d+'/'+t;
+  });
+  const op=tot?Math.round(don/tot*100):0;
+  document.getElementById('ov-f').style.width=op+'%';
+  document.getElementById('ov-l').textContent=don+' of '+tot+' items complete';
+  document.getElementById('ov-p').textContent=op+'%';
+  const dd=document.getElementById('phase-dots');
+  if(dd){
+    dd.innerHTML='';
+    PHASES.forEach(p=>{
+      const el=document.createElement('div');
+      el.className='phase-dot';
+      el.innerHTML='<span class="dot" style="background:'+p.color+'"></span>'+p.label+': '+(pd[p.id]||0)+'/'+(pt[p.id]||0);
+      dd.appendChild(el);
+    });
+  }
+}
+
+const filEl=document.getElementById('fil');
+['All',...PHASES.map(p=>p.label)].forEach(c=>{
+  const b=document.createElement('button');
+  b.className='fil'+(c==='All'?' on':'');
+  b.dataset.c=c;b.textContent=c;
+  b.onclick=()=>{
+    document.querySelectorAll('.fil').forEach(x=>x.classList.toggle('on',x.dataset.c===c));
+    document.querySelectorAll('.mod').forEach(el=>{
+      if(c==='All'){el.style.display='';}
+      else{const ph=parseInt(el.dataset.phase);const p=PHASES.find(x=>x.id===ph);el.style.display=(p&&p.label===c)?'':'none';}
+    });
+  };
+  filEl.appendChild(b);
+});
+
+const modEl=document.getElementById('mods');
+M.forEach((m,i)=>{
+  const tot=cntI(m),don=cntD(m),pct=tot?Math.round(don/tot*100):0;
+  const ph=PHASES.find(x=>x.id===m.phase);
+  const col=ph?ph.color:'#888';
+  const pcls=ph?ph.cls:'';
+
+  const ctxH=m.focus?'<div class="ctx-box" style="border-left-color:'+col+'"><div class="ctx-label" style="color:'+col+'">Focus</div><p>'+m.focus+'</p></div>':'';
+  const aiH=m.ai?'<div class="ai-tip"><span class="ai-label">AI connection</span><p>'+m.ai+'</p></div>':'';
+  const projH=m.proj?'<div class="proj-box"><h4>Practice Project</h4><p>'+m.proj.desc+'</p><div class="proj-stack">'+m.proj.stack.map(s=>'<span class="stag">'+s+'</span>').join('')+'</div></div>':'';
+
+  let secH='';
+  m.secs.forEach(s=>{
+    secH+='<div class="sec"><div class="stitle"><span class="sdot" style="background:'+(s.dot||col)+'"></span>'+s.t+'</div>';
+    s.i.forEach(it=>{
+      const d=!!ck[it.id];
+      secH+='<div class="item'+(d?' done':'')+'" onclick="toggleI(\''+it.id+'\',this)"><div class="cb">'+(d?'✓':'')+'</div><div><div class="ilbl">'+it.l+'</div>'+(it.n?'<div class="inote">'+it.n+'</div>':'')+'</div></div>';
+    });
+    secH+='</div>';
+  });
+
+  let resH='';
+  if(m.resources){
+    m.resources.forEach(rc=>{
+      resH+='<div class="res-block"><h4>'+rc.cat+'</h4>';
+      rc.items.forEach(r=>{
+        let b='';
+        if(r.badge==='ud') b='<span class="badge badge-ud">Udemy</span>';
+        else if(r.badge==='ai') b='<span class="badge badge-ai">Ed Donner</span>';
+        else if(r.badge==='yt') b='<span class="badge badge-yt">YouTube</span>';
+        resH+='<div class="res-row"><span class="res-name">'+r.name+b+(r.note?'<span class="res-sub">'+r.note+'</span>':'')+'</span><span class="'+(r.free?'tag-free':'tag-paid')+'">'+(r.free?'free':'paid')+'</span></div>';
+      });
+      resH+='</div>';
+    });
+  }
+
+  const div=document.createElement('div');
+  div.className='mod';
+  div.dataset.phase=m.phase;
+  div.innerHTML='<div class="mhd"><span class="mnum">'+m.n+'</span><span class="mtitle">'+m.t+'</span><span class="mphase '+pcls+'">'+(ph?ph.label:'')+'</span><span class="mprg"><span id="pl'+i+'">'+don+'/'+tot+'</span></span><span class="marr">&#9662;</span></div><div class="mbody">'+ctxH+'<div class="pbar"><div class="pfill" id="pf'+i+'" style="width:'+pct+'%;background:'+col+'"></div></div>'+aiH+projH+secH+'<div class="res-wrap">'+resH+'</div></div>';
+  div.querySelector('.mhd').addEventListener('click',function(){div.classList.toggle('open');});
+  modEl.appendChild(div);
+});
+
+updAll();
+</script>
+</body>
+</html>
